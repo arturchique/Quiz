@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pefg+v+i4y@)=-4+4z5ge9156y13@w$3oyw(rconpodo($tinp'
+SECRET_KEY = 'oq@(87p#%ff^zc2ajazd^u*sj_1w*pp9w^!c3!#)miqj^*k0@0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'quiz_api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +85,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'quiz_api.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
