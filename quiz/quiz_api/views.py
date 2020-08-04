@@ -11,7 +11,7 @@ class UserCreateView(generics.CreateAPIView):
 class UserListView(generics.ListAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 def clean_all(request):
