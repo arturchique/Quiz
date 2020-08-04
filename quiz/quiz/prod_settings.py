@@ -6,7 +6,7 @@ SECRET_KEY = '$+x-4c045-u16r&6&7p#565i#*xjgrlp@lxe-=0c&&chwiriof'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '64.227.71.171:8000',]
+ALLOWED_HOSTS = ['127.0.0.1', '64.227.71.171',]
 
 
 DATABASES = {
