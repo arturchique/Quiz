@@ -8,12 +8,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '64.227.71.171']
 
-STATIC_ROOT = '/home/django/django_project/django_project/static'
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATIC_ROOT = '/home/django/django_project/django_project/static'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_DIR]
 
 
 DATABASES = {
