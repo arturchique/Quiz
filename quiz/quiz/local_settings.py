@@ -16,3 +16,10 @@ DATABASES = {
     }
 }
 
+STATIC_ROOT = '/home/django/django_project/django_project/static'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
