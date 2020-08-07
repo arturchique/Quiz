@@ -4,6 +4,7 @@ from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
 
@@ -32,7 +33,7 @@ class ProfileIdView(APIView):
 def clean_all(request):
     User.objects.all().delete()
 
-
+@csrf_exempt
 class HelloView(APIView):
     def get(self, request):
         return Response({'data': 'Захар Лох', 'status_code': 200})
