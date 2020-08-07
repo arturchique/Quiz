@@ -29,3 +29,8 @@ class ProfileIdView(APIView):
 
 def clean_all(request):
     User.objects.all().delete()
+
+
+class HelloView(APIView):
+    def get(self, request):
+        return Response({'data': 'Захар Лох'})
