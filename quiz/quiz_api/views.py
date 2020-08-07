@@ -4,7 +4,7 @@ from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
+from .renderers import UTF8JSONRenderer
 
 
 class UserListView(APIView):
@@ -34,6 +34,6 @@ def clean_all(request):
 
 
 class HelloView(APIView):
-    renderer_classes = (JSONRenderer,)
+    renderer_classes = (UTF8JSONRenderer,)
     def get(self, request):
         return Response({'data': 'Захар Лох'})
