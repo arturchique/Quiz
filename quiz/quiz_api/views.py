@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from django.views.decorators.csrf import csrf_exempt
 
 
 class UserListView(APIView):
@@ -34,5 +35,6 @@ def clean_all(request):
 
 
 class HelloView(APIView):
+    @csrf_exempt
     def get(self, request):
         return Response({'data': 'Захар Лох', 'status_code': 200})
