@@ -35,4 +35,4 @@ def clean_all(request):
 
 class HelloView(APIView):
     def get(self, request):
-        return Response({'data': 'Захар Лох'})
+        return Response({'data': 'Захар Лох', 'status_code': 400})
