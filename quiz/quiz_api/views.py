@@ -12,7 +12,7 @@ class UserListView(APIView):
     def get(self, request):
         users = User.objects.all()
         serializer = UserListSerializer(users, many=True)
-        return Response({"Data": serializer.data, "status_code": 400})
+        return Response({"Data": serializer.data, "status_code": 200})
     # permission_classes = [permissions.IsAdminUser]
 
 
@@ -35,4 +35,4 @@ def clean_all(request):
 
 class HelloView(APIView):
     def get(self, request):
-        return Response({'data': 'Захар Лох', 'status_code': 400})
+        return Response({'data': 'Захар Лох', 'status_code': 200})
