@@ -4,12 +4,10 @@ from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.response import Response
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
 
 class UserListView(APIView):
-
     def get(self, request):
         users = User.objects.all()
         serializer = UserListSerializer(users, many=True)
@@ -20,20 +18,47 @@ class UserListView(APIView):
 class ProfileIdView(APIView):
     def get(self, request, user_id):
         participant = Participant.objects.filter(user=user_id)
-        serializer = ParticipantSerializer(participant, many=True)
+        serializer = ParticipantsViewSerializer(participant, many=True)
         return Response({"пользователь": serializer.data})
-    def post(self, request):
-        participant = request.data.get("participant")
-        serializer = Participant(data=participant)
-        if serializer.is_valid(raise_exception=True):
-            participant_saved = serializer.save()
-        return Response({"success": "Participant '{}' created successfully".format(participant_saved.nickname)})
+    def post(self, request, user_id):
+        if request.user.id != user_id:
+            participant = request.data
+            serializer = ParticipantsSerializer(data=participant)
+            if serializer.is_valid(raise_exception=True):
+                nickname = serializer.data["nickname"]
+                rating = serializer.data["rating"]
+                bio = serializer.data["bio"]
+                avatar = serializer.data["avatar"]
+
+                new_participant = Participant.objects.create(nickname=nickname, rating=rating, bio=bio, avatar=avatar)
+                user = User.objects.get(id=user_id)
+                user.participant_set.add(new_participant)
+            return Response({'success': f"user {user.id} created"})
+        else:
+            return Response({'unsuccessful': 'данный пользователь не имеет доступа к этому методу'})
+
+        # if serializer.is_valid(raise_exception=False):
+        #     # participant_saved = serializer.save()
+        #     nickname = serializer.data['nickname']
+        #     rating = serializer.data['rating']
+        #     bio = serializer.data['bio']
+        #     avatar = serializer.data['avatar']
+        #
+        #     new_participant = Participant.objects.create(nickname=nickname, rating=rating, bio=bio, avatar=avatar)
+        #     user = User.objects.get(id=user_id)
+        #     user.participant_set.add(new_participant)
+        #
+        #     # return Response({"success": "Participant '{}' created successfully".format(nickname)})
+        # return Response({'data': serializer.data})
+        # return Response({"success": f"Participant {serializer.data} created"})
 
 
 def clean_all(request):
-    User.objects.all().delete()
+    return Response({Participant.objects.all()})
 
-@csrf_exempt
+
 class HelloView(APIView):
     def get(self, request):
-        return Response({'data': 'Захар Лох', 'status_code': 200})
+        participant = Participant.objects.all()
+        serializer = ParticipantsViewSerializer(participant, many=True)
+        return Response({'data': serializer.data})
